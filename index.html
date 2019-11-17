@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>ウェブ撃</title>
+		<script type="text/javascript">
+			window.jQuery = window.$ = require("./js/jquery-3.4.1.min.js");
+		</script>
+		<script type="text/javascript" src="js/popper.min.js"></script>
+		<script type="text/javascript" src="js/popper.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap-colorpicker.min.js"></script>
+		<script type="text/javascript" src="js/original/variable.js"></script>
+		<script type="text/javascript" src="js/original/common.js"></script>
+		<script type="text/javascript" src="js/original/file.js"></script>
+		<script type="text/javascript" src="js/original/dialog.js"></script>
+		<script type="text/javascript" src="js/original/page.js"></script>
+		<script type="text/javascript" src="js/original/export_html.js"></script>
+		<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">
+		<link rel="stylesheet" href="css/original/common.css">
+		<link rel="stylesheet" href="css/original/version.css">
+		<link rel="stylesheet" href="css/original/webgeki.css">
+		<link rel="stylesheet" href="css/original/geki-ui.css">
+	</head>
+	<body>
+		<!-- navbar -->
+		<nav class="navbar navbar-expand-lg">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							ファイル
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="javascript:Initialize()">新規作成</a>
+							<a class="dropdown-item" href="javascript:fileOpen()">開く</a>
+							<a class="dropdown-item" href="javascript:fileSave()">上書き保存</a>
+							<a class="dropdown-item" href="javascript:fileSaveAs()">名前を付けて保存</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="javascript:exportHTML()">ウェブサイトの出力</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#closeDialog">閉じる</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							ウェブサイト設定
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="javascript:wsNameDialogOpen()">ウェブサイトの名前</a>
+							<a class="dropdown-item" href="javascript:wsDescriptionDialogOpen()">ウェブサイトの説明文</a>
+							<a class="dropdown-item" href="javascript:wsFooterDialogOpen()">ウェブサイトのフッター</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="javascript:wsKeywordDialogOpen()">ウェブサイトのキーワード</a>
+							<a class="dropdown-item" href="javascript:wsAccessTagDialogOpen()">広告・アクセス解析コードの設置</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							デザイン設定
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="javascript:wsBaseDialogOpen()">デザイン基本設定</a>
+							<a class="dropdown-item" href="javascript:wsColorDialogOpen()">色の設定</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							便利ツール
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="javascript:wsMemoDialogOpen()">メモ</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							ヘルプ
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="javascript:execHelp('index')">操作説明書</a>
+							<a class="dropdown-item" href="javascript:execHelp('license')">ライセンス情報</a>
+							<a class="dropdown-item" href="" data-toggle="modal" data-target="#versionDialog">バージョン情報</a>
+						</div>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<img src="img/logo2.png" height="42">
+				</form>
+			</div>
+		</nav>
+		
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-2 geki-ui-sidebar min-vh-100">
+					<div class="list-group" id="pageList">
+					</div>
+					<button type="button" class="btn w-100 text-left" onclick="wsPageDialogOpen(0)">+　ページを追加</button>
+				</div>
+				<div class="col-10 geki-ui-page">
+					<div class="webgeki">
+						<div class="webgeki-main">
+							<div class="webgeki-header webgeki-theme">
+								<div class="webgeki-header-menu">
+									<button type="button" class="btn btn-secondary" onclick="wsPageDialogOpen(1)">
+										ページの設定
+									</button>
+									<button type="button" class="btn btn-secondary" onclick="selectBGImage()">
+										背景画像の変更
+									</button>
+									<button type="button" id="deleteBGImage" class="btn btn-danger" onclick="deleteBGImage()">
+										背景画像の削除
+									</button>
+								</div>
+								<div class="webgeki-wrapper">
+									<h1><a href="javascript:wsNameDialogOpen()" id="wsName" data-toggle="tooltip" title="ウェブサイトの名前を変更"></a></h1>
+									<h2><a href="javascript:wsDescriptionDialogOpen()" id="wsDescription" data-toggle="tooltip" title="ウェブサイトの説明文を変更">【ウェブサイトの説明文を入力】</a></h2>
+								</div>
+							</div>
+							<div class="webgeki-wrapper webgeki-contents">
+								<div class="webgeki-wrapper-left" id="webgeki_left" contenteditable="true">
+								</div>
+								<div class="webgeki-wrapper-right" id="webgeki_right" contenteditable="true">
+								</div>
+							</div>
+							<div class="webgeki-footer webgeki-theme">
+								<div class="webgeki-wrapper">
+									<a href="javascript:wsFooterDialogOpen()" id="wsFooter" data-toggle="tooltip" title="フッターの表記を変更">(c)2019 Unknown Website all rights reserved.</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- error-dialog -->
+		<div class="modal fade" id="errorDialog" tabindex="-1" role="dialog" aria-labelledby="errorDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							エラーが発生しました
+						</h5>
+					</div>
+					<div class="modal-body">
+						エラー内容：<span id="errorContents"></span>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" data-dismiss="modal">OK</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- close-dialog -->
+		<div class="modal fade" id="closeDialog" tabindex="-1" role="dialog" aria-labelledby="closeDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						ウェブ撃を終了します。よろしいですか？
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" onclick="closeApp()">はい</button>
+						<button type="button" class="btn btn-dark" data-dismiss="modal">いいえ</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- page-dialog -->
+		<div class="modal fade" id="wsPageDialog" tabindex="-1" role="dialog" aria-labelledby="wsPageDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							新しいページを追加
+						</h5>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group row">
+								<label for="pageName" class="col-sm-4 col-form-label">ページの名前</label>
+								<div class="col-sm-8">
+									<input class="form-control" id="pageName" placeholder="例：会社情報">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="pageFile" class="col-sm-4 col-form-label">ページのファイル名</label>
+								<div class="col-sm-8">
+									<input class="form-control" id="pageFile" placeholder="例：company">
+									<span id="help8" class="form-text text-muted">
+										既に存在するファイル名は使えません。
+									</span>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="pageLayout" class="col-sm-4 col-form-label">ページのレイアウト</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="pageLayout">
+										<option value="0">1カラム</option>
+										<option value="1">2カラム（左側が狭い）</option>
+										<option value="2">2カラム（同じ大きさ）</option>
+										<option value="3">2カラム（右側が狭い）</option>
+									</select>
+								</div>
+							</div><br>
+							<button type="button" class="btn btn-danger" id="pageDeleteButton" onclick="wsPageDelete()">このページを削除</button>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" onclick="wsPageDialogClose()">OK</button>
+						<button type="button" class="btn btn-dark" data-dismiss="modal">キャンセル</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- ws-name-dialog -->
+		<div class="modal fade" id="wsNameDialog" tabindex="-1" role="dialog" aria-labelledby="wsNameDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							ウェブサイトの名前
+						</h5>
+					</div>
+					<div class="modal-body">
+						<input type="text" class="form-control"><hr>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="checkNameLogo">
+							<label class="form-check-label" for="checkNameLogo">タイトルにロゴ画像を使用する</label>
+						</div><br>
+						<img id="logoImageView" src="img/no_image.png"><br>
+						<button type="button" class="btn btn-dark" onclick="selectLogoImage()">ロゴ画像を選択</button>
+						<button type="button" class="btn btn-danger" onclick="deleteLogoImage()">ロゴ画像を削除</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" onclick="wsNameDialogClose()">OK</button>
+						<button type="button" class="btn btn-dark" data-dismiss="modal">キャンセル</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- ws-description-dialog -->
+		<div class="modal fade" id="wsDescriptionDialog" tabindex="-1" role="dialog" aria-labelledby="wsDescriptionDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							ウェブサイトの説明文
+						</h5>
+					</div>
+					<div class="modal-body">
+						<textarea class="form-control" rows="8"></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" onclick="wsDescriptionDialogClose()">OK</button>
+						<button type="button" class="btn btn-dark" data-dismiss="modal">キャンセル</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- ws-footer-dialog -->
+		<div class="modal fade" id="wsFooterDialog" tabindex="-1" role="dialog" aria-labelledby="wsFooterDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							ウェブサイトのフッター
+						</h5>
+					</div>
+					<div class="modal-body">
+						<textarea class="form-control" rows="8"></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" onclick="wsFooterDialogClose()">OK</button>
+						<button type="button" class="btn btn-dark" data-dismiss="modal">キャンセル</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- keyword-dialog -->
+		<div class="modal fade" id="wsKeywordDialog" tabindex="-1" role="dialog" aria-labelledby="wsKeywordDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							ウェブサイトのキーワード
+						</h5>
+					</div>
+					<div class="modal-body">
+						<p>ウェブサイトのキーワードを入力し、「OK」ボタンを押して下さい。</p>
+						<textarea class="form-control" rows="8"></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" onclick="wsKeywordDialogClose()">OK</button>
+						<button type="button" class="btn btn-dark" data-dismiss="modal">キャンセル</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- access-tag-dialog -->
+		<div class="modal fade" id="wsAccessTagDialog" tabindex="-1" role="dialog" aria-labelledby="wsAccessTagDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							広告・アクセス解析コードの設置
+						</h5>
+					</div>
+					<div class="modal-body">
+						<p>広告やアクセス解析のコード（&lt;head&gt;タグ内に設置する物のみ）を貼り付け、「OK」ボタンを押して下さい。</p>
+						<textarea class="form-control" rows="8"></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" onclick="wsAccessTagDialogClose()">OK</button>
+						<button type="button" class="btn btn-dark" data-dismiss="modal">キャンセル</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- memo-dialog -->
+		<div class="modal fade" id="wsMemoDialog" tabindex="-1" role="dialog" aria-labelledby="wsMemoDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							メモ
+						</h5>
+					</div>
+					<div class="modal-body">
+						<textarea class="form-control" rows="8"></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" onclick="wsMemoDialogClose()">OK</button>
+						<button type="button" class="btn btn-dark" data-dismiss="modal">キャンセル</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- base-design-dialog -->
+		<div class="modal fade" id="wsBaseDialog" tabindex="-1" role="dialog" aria-labelledby="wsBaseDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							デザイン基本設定
+						</h5>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group row">
+								<label for="siteWidth" class="col-sm-4 col-form-label">ウェブサイトの横幅</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="siteWidth">
+										<option value="1200">広い　　（1200px）</option>
+										<option value="1100">やや広い（1100px）</option>
+										<option value="1000">標準　　（1000px）</option>
+										<option value="900">やや狭い（900px）</option>
+										<option value="800">狭い　　（800px）</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="siteFont" class="col-sm-4 col-form-label">ウェブサイトのフォント</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="siteFont">
+										<option value="GenShinGothic">指定しない</option>
+										<optgroup label="Windows向け">
+											<option value="Yu Gothic">游ゴシック</option>
+											<option value="Meiryo">メイリオ</option>
+											<option value="MS PGothic">MS Pゴシック</option>
+											<option value="Yu Mincho">游明朝</option>
+											<option value="MS PMincho">MS P明朝</option>
+										</optgroup>
+										<optgroup label="Mac向け">
+											<option value="Hiragino Kaku Gothic ProN">ヒラギノ角ゴ</option>
+											<option value="Hiragino Mincho ProN">ヒラギノ明朝</option>
+										</optgroup>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="siteAlign" class="col-sm-4 col-form-label">ウェブサイトの名前・説明文の文字揃え</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="siteAlign">
+										<option value="left">左揃え</option>
+										<option value="center">中央揃え</option>
+										<option value="right">右揃え</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="siteAlignFooter" class="col-sm-4 col-form-label">ウェブサイトのフッターの文字揃え</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="siteAlignFooter">
+										<option value="left">左揃え</option>
+										<option value="center">中央揃え</option>
+										<option value="right">右揃え</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="hfNoWide">
+								<label class="form-check-label" for="hfNoWide">ヘッダー・フッターの背景色を幅一杯に広げない</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="createShadow">
+								<label class="form-check-label" for="createShadow">ページの外周に影を付ける</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="createMargin">
+								<label class="form-check-label" for="createMargin">ページの外周に余白を作る</label>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" onclick="wsBaseDialogClose()">OK</button>
+						<button type="button" class="btn btn-dark" data-dismiss="modal">キャンセル</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- color-dialog -->
+		<div class="modal fade" id="wsColorDialog" tabindex="-1" role="dialog" aria-labelledby="wsColorDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							色の設定
+						</h5>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group row">
+								<label for="colorTheme" class="col-sm-4 col-form-label">テーマ色</label>
+								<div class="col-sm-8">
+									<input type="text" id="colorTheme" class="form-control" maxlength="7">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="hfTheme" class="col-sm-4 col-form-label">ヘッダー・フッターの文字色</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="hfTheme">
+										<option value="rgb(255, 255, 255)">白</option>
+										<option value="rgb(0, 0, 0)">黒</option>
+										<option value="theme">テーマ色</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="useBGColor">
+								<label class="form-check-label" for="useBGColor">ヘッダー・フッターの背景色をテーマ色に設定</label>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" onclick="wsColorDialogClose()">OK</button>
+						<button type="button" class="btn btn-dark" onclick="wsColorDialogCancel()">キャンセル</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- version-dialog -->
+		<div class="modal fade" id="versionDialog" tabindex="-1" role="dialog" aria-labelledby="versionDialogLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">ウェブ撃について</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="version-dialog">
+							<img src="img/logo2.png" class="version-logo">
+						</div>
+						<p>
+							ウェブ撃 -WEBGEKI-<br>
+							テストバージョン<br>
+							(c)2019 Sora Arakawa all rights reserved.
+						</p>
+						<p>
+							以下のライブラリ及びフォントを使用しています：<br>
+							Electron 4.2.9 (Chromium 69.0.3497.128 + Node 10.11.0 + V8 6.9.427.31-electron.0)<br>
+							jQuery 3.4.1<br>
+							Bootstrap 4.3.1<br>
+							Bootstrap Colorpicker 3.1.2<br>
+							Popper.js 1.14.7<br>
+							CKEditor 4.12.1<br>
+							Bijou<br>
+							源真ゴシック
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" data-dismiss="modal">OK</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,45 @@
+.geki-ui-sidebar, .geki-ui-page {
+	padding-top: 20px;
+}
+
+.geki-ui-sidebar ul {
+	box-shadow: 0 0 2px rgb(0,0,0);
+}
+
+.geki-ui-page {
+	overflow-y: scroll;
+}
+
+.webgeki {
+	display: flex;
+	justify-content: center;
+}
+
+.nav-link, .nav-link:hover {
+	color: rgb(26,29,32);
+}
+
+.dropdown-menu {
+	border: solid 1px rgb(52,58,64);
+}
+
+#pageList {
+	text-align: left;
+	font-size: 16px;
+}
+
+#logoImageView {
+	width: 200px;
+	height: 120px;
+	margin: 10px 0;
+	object-fit: contain;
+	background-color: rgb(150,150,150);
+}
+
+#wsNameDialog input, #wsDescriptionDialog input {
+	font-size: 24px;
+}
+
+#loadImageImg, #loadImageCanvas, #wsKeywordData {
+	display: none;
+}
