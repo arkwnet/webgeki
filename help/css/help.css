@@ -3,6 +3,17 @@ body {
 	margin-bottom: 20px;
 }
 
+hr {
+	height: 1px;
+	border: 0;
+	background-color: gray;
+}
+
 #main {
-	margin-top: 60px;
+	margin-top: 70px;
+}
+
+.license {
+	margin-top: -15px;
+	font-size: 12px;
 }

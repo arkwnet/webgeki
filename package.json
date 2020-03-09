@@ -1,7 +1,7 @@
 {
   "name": "WEBGEKI",
-  "version": "Test",
-  "description": "WEBGEKI is a next-generation website creation tool.",
+  "version": "Beta 1",
+  "description": "Next-generation Website Creation Tool",
   "main": "app.js",
   "author": "Sora Arakawa",
   "license": "MIT"

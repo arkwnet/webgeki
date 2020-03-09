@@ -1,6 +1,8 @@
-function openPage(a){
-	CKEDITOR.instances.webgeki_left.setData(page[a][2]);
-	CKEDITOR.instances.webgeki_right.setData(page[a][3]);
+function openPage(a,b){
+	if(b == undefined){
+		CKEDITOR.instances.webgeki_left.setData(page[a][2]);
+		CKEDITOR.instances.webgeki_right.setData(page[a][3]);
+	}
 	page_id = a;
 	update();
 	var list_html = "";

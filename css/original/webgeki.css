@@ -1,6 +1,8 @@
 .webgeki-main {
 	background-color: rgb(255,255,255);
 	font-family: "GenShinGothic";
+	border: solid 1px rgb(158,158,158);
+	box-shadow: 0 0 2px rgb(189,189,189);
 }
 
 .webgeki-contents, .webgeki-main h1, .webgeki-main h2, .webgeki-main h3, .webgeki-main h4, .webgeki-main h5, .webgeki-main h6, .webgeki-main p {

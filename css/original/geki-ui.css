@@ -43,3 +43,7 @@
 #loadImageImg, #loadImageCanvas, #wsKeywordData {
 	display: none;
 }
+
+#wsMessageDialogMain {
+	font-size: 18px;
+}

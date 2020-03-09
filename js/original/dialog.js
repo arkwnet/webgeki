@@ -37,7 +37,7 @@ function wsPageDialogClose(){
 			page[page_id][0] = $("#pageName").val();
 			page[page_id][1] = $("#pageFile").val();
 			page[page_id][4] = $("#pageLayout").val();
-			openPage(page_id);
+			openPage(page_id,0);
 		}
 		$("#wsPageDialog").modal("hide");
 		$("#pageFile").removeClass("is-invalid");
@@ -93,12 +93,12 @@ function wsDescriptionDialogClose(){
 }
 
 function wsFooterDialogOpen(){
-	$("#wsFooterDialog textarea").val($("#wsFooter").text());
+	$("#wsFooterDialog textarea").val($("#wsFooter").html());
 	$("#wsFooterDialog").modal("show");
 }
 
 function wsFooterDialogClose(){
-	$("#wsFooter").text($("#wsFooterDialog textarea").val());
+	$("#wsFooter").html($("#wsFooterDialog textarea").val());
 	$("#wsFooterDialog").modal("hide");
 }
 
@@ -205,4 +205,9 @@ function wsMemoDialogOpen(){
 function wsMemoDialogClose(){
 	memo = $("#wsMemoDialog textarea").val();
 	$("#wsMemoDialog").modal("hide");
+}
+
+function wsMessageDialogOpen(a){
+	$("#wsMessageDialogMain").html(a);
+	$("#wsMessageDialog").modal("show");
 }

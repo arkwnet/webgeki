@@ -7,7 +7,6 @@
 			window.jQuery = window.$ = require("./js/jquery-3.4.1.min.js");
 		</script>
 		<script type="text/javascript" src="js/popper.min.js"></script>
-		<script type="text/javascript" src="js/popper.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap-colorpicker.min.js"></script>
 		<script type="text/javascript" src="js/original/variable.js"></script>
@@ -86,7 +85,7 @@
 					</li>
 				</ul>
 				<form class="form-inline my-2 my-lg-0">
-					<img src="img/logo2.png" height="42">
+					<img src="img/webgeki.png" height="42">
 				</form>
 			</div>
 		</nav>
@@ -483,23 +482,37 @@
 					</div>
 					<div class="modal-body">
 						<div class="version-dialog">
-							<img src="img/logo2.png" class="version-logo">
+							<img src="img/webgeki.png" class="version-logo">
 						</div>
 						<p>
 							ウェブ撃 -WEBGEKI-<br>
-							テストバージョン<br>
-							(c)2019 Sora Arakawa all rights reserved.
+							Beta 1<br>
+							(c)2019,2020 Sora Arakawa all rights reserved.
 						</p>
 						<p>
 							以下のライブラリ及びフォントを使用しています：<br>
-							Electron 4.2.9 (Chromium 69.0.3497.128 + Node 10.11.0 + V8 6.9.427.31-electron.0)<br>
+							Electron 4.2.12 (Chromium 69.0.3497.128 + Node 10.11.0 + V8 6.9.427.31-electron.0)<br>
 							jQuery 3.4.1<br>
 							Bootstrap 4.3.1<br>
 							Bootstrap Colorpicker 3.1.2<br>
 							Popper.js 1.14.7<br>
 							CKEditor 4.12.1<br>
-							Bijou<br>
+							AkariFramework (Based on Bijou CSS Framework)<br>
 							源真ゴシック
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-dark" data-dismiss="modal">OK</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- message-dialog -->
+		<div class="modal fade" id="wsMessageDialog" tabindex="-1" role="dialog" aria-labelledby="wsMessageDialogLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<p id="wsMessageDialogMain"></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-dark" data-dismiss="modal">OK</button>

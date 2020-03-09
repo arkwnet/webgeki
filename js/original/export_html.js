@@ -6,7 +6,6 @@ function exportHTML(){
 		}, filepaths=>{
 		if(filepaths.length != 0) {
 			// ファイル読み込み
-			// TODO : htmlファイルの出力
 			if(!fs.existsSync(filepaths[0]+"\\css")){
 				fs.mkdir(filepaths[0]+"\\css", function(err){});
 			}
@@ -53,7 +52,7 @@ function exportHTML(){
 					html += "<div class=\"contents-left width-28\">"+page[i][2]+"</div>";
 					html += "<div class=\"contents-right width-70\">"+page[i][3]+"</div>";
 				}
-				html += "</div><div class=\"footer\"><div class=\"wrapper\">"+$("#wsFooter").text()+"</div></div>";
+				html += "</div><div class=\"footer\"><div class=\"wrapper\">"+$("#wsFooter").html()+"</div></div>";
 				html += "</div></body></html>";
 				if(page[i][1] == ""){
 					fs.writeFile(filepaths[0]+"\\index.html", html, "utf8", function(err){});
@@ -114,6 +113,7 @@ function generateCSS(path){
 	css += ".contents h1, .contents h2, .contents h3, .contents h4, .contents h5, .contents h6 {margin: 10px 0;padding: 2px 0;border-bottom: solid 2px rgb(52,152,219);font-weight: normal;}";
 	css += ".contents h1 {font-size: 38px;}.contents h2 {font-size: 32px;}.contents h3 {font-size: 26px;}.contents h4 {font-size: 22px;}.contents h5 {font-size: 18px;}.contents h6 {font-size: 14px;}.contents p {margin: 10px 0;}";
 	css += ".contents li{margin-left: -15px;}.contents hr {margin: 14px 0;border: solid 1px rgb(232,232,232);}.contents table{border-collapse: collapse;}.contents th,.contents td{padding: 2px;border: solid 1px rgb(63,63,63);}";
-css += "@media screen and (max-width: "+(parseInt($(".webgeki-wrapper").css("width"))+50)+"px){.header img{width: 70%;}.header,.footer,.contents{padding: 10px;}.main,.wrapper,.contents-left,.contents-right{width: 100%;}}";
+	css += "@media screen and (max-width: "+(parseInt($(".webgeki-wrapper").css("width"))+50)+"px){.header img{width: 70%;}.header,.footer,.contents{padding: 10px;}.main,.wrapper,.contents-left,.contents-right{width: 100%;}}";
 	fs.writeFile(path+"\\css\\style.css", css, "utf8", function(err){});
+	wsMessageDialogOpen("ウェブサイトの出力が完了しました。");
 }

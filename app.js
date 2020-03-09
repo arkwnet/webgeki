@@ -4,8 +4,8 @@
 ------------------------
 ウェブ撃 -WEBGEKI-
 
-テストバージョン
-(c)2019 Sora Arakawa all rights reserved.
+Beta 1
+(c)2019,2020 Sora Arakawa all rights reserved.
 Licensed under the MIT License
 ------------------------
 
@@ -34,7 +34,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 let mainWindow = null;
 app.on("ready", () => {
-	mainWindow = new BrowserWindow({width: 1024, height: 600, minWidth: 1024, minHeight: 600});
+	mainWindow = new BrowserWindow({width: 1024, height: 600, minWidth: 1024, minHeight: 600, icon: __dirname + "/img/icon_128px.png"});
 	mainWindow.setMenu(null);
 	mainWindow.maximize();
 	mainWindow.loadURL("file://" + __dirname + "/index.html");

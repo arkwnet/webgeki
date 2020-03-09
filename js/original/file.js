@@ -60,7 +60,7 @@ function fileOpen(){
 							no_wide = savedata.ws_no_wide;
 							c_shadow = savedata.ws_c_shadow;
 							c_margin = savedata.ws_c_margin;
-							$("#wsFooter").text(savedata.ws_footer);
+							$("#wsFooter").html(savedata.ws_footer);
 							$(".webgeki-wrapper").css("width",parseInt(savedata.ws_width));
 							$("#siteWidth").val(""+parseInt(savedata.ws_width));
 							$(".webgeki-main").css("font-family",savedata.ws_font);
@@ -119,7 +119,7 @@ function fileSaveProcess(a){
 		ws_no_wide: no_wide,
 		ws_c_shadow: c_shadow,
 		ws_c_margin: c_margin,
-		ws_footer: $("#wsFooter").text(),
+		ws_footer: $("#wsFooter").html(),
 		ws_width: $(".webgeki-wrapper").css("width"),
 		ws_font: $(".webgeki-main").css("font-family"),
 		ws_align: $(".webgeki-header").css("text-align"),
