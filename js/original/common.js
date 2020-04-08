@@ -13,17 +13,15 @@ function closeApp(){
 }
 
 window.onload = function(){
-	$("#colorTheme").val("rgb(63, 81, 181)");
 	$('[data-toggle="tooltip"]').tooltip();
 	$("#colorTheme").colorpicker({
 		format: "rgb",
 		useAlpha: false
 	});
-	page.push(["トップページ","","<h1>ようこそ</h1>これはサンプルテキストです。編集時には削除して下さい。<hr>これはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストです","<h1>ようこそ</h1>これはサンプルテキストです。編集時には削除して下さい。<hr>これはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストです",1]);
 	$("#siteWidth").val(""+parseInt($(".webgeki-wrapper").css("width")));
+	InitCommon();
 	update();
 	openPage(0);
-	document.title = "無題 - ウェブ撃";
 	setInterval(main,1000/20);
 }
 
@@ -36,6 +34,11 @@ function main(){
 		$(".webgeki-header").css("background-color",$("#colorTheme").val());
 		$(".webgeki-footer").css("background-color",$("#colorTheme").val());
 	}
+	if(bg_use2 == 0){
+		$(".webgeki-main").css("background-color","rgb(255,255,255)");
+	}else{
+		$(".webgeki-main").css("background-color",$("#colorTheme").val());
+	}
 	if(bg_img == ""){
 		$(".webgeki-header").css("background-image","");
 		$("#deleteBGImage").prop("disabled", true);
@@ -47,6 +50,11 @@ function main(){
 		$(".webgeki-header a, .webgeki-footer a").css("color",$("#colorTheme").val());
 	}else{
 		$(".webgeki-header a, .webgeki-footer a").css("color",$("#hfTheme").val());
+	}
+	if($("#mTheme").val() == "theme"){
+		$(".webgeki-main").css("color",$("#colorTheme").val());
+	}else{
+		$(".webgeki-main").css("color",$("#mTheme").val());
 	}
 	if(no_wide == 1){
 		$(".webgeki-main").css("width",parseInt($(".webgeki-wrapper").css("width"))+50);

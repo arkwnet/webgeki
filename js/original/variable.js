@@ -6,6 +6,7 @@ var logo_img = "";
 var logo_use = 0;
 var bg_img = "";
 var bg_use = 1;
+var bg_use2 = 0;
 var no_wide = 0;
 var c_shadow = 0;
 var c_margin = 0;
@@ -13,6 +14,7 @@ var c_margin = 0;
 // 色関係
 var default_color = "";
 var default_hf = "";
+var default_m = "";
 
 // ページ関係
 var page = [];

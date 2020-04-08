@@ -169,6 +169,11 @@ function wsColorDialogOpen(){
 	}else{
 		$("#useBGColor").prop("checked",false);
 	}
+	if(bg_use2 == 1){
+		$("#useBGColor2").prop("checked",true);
+	}else{
+		$("#useBGColor2").prop("checked",false);
+	}
 	$("#wsColorDialog").modal("show");
 }
 
@@ -177,6 +182,11 @@ function wsColorDialogClose(){
 		bg_use = 1;
 	}else{
 		bg_use = 0;
+	}
+	if($("#useBGColor2").prop("checked") == true){
+		bg_use2 = 1;
+	}else{
+		bg_use2 = 0;
 	}
 	$("#wsColorDialog").modal("hide");
 }

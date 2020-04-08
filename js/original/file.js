@@ -1,3 +1,13 @@
+function InitCommon(){
+	document.title = "無題 - ウェブ撃";
+	$("#colorTheme").val("rgb(63, 81, 181)");
+	$("#hfTheme").val("rgb(255, 255, 255)");
+	$("#mTheme").val("rgb(0, 0, 0)");
+	$("#wsDescription").text("【ウェブサイトの説明文を入力】");
+	$("#wsFooter").text("(c)2020 all rights reserved.");
+	page.push(["トップページ","","<h1>ようこそ</h1>これはサンプルテキストです。編集時には削除して下さい。<hr>これはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストです","<h1>ようこそ</h1>これはサンプルテキストです。編集時には削除して下さい。<hr>これはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストです",1]);
+}
+
 function Initialize(){
 	if(window.confirm("編集途中のデータは破棄されます。よろしいですか?")){
 		site_name = "【ウェブサイトの名前を入力】";
@@ -8,24 +18,23 @@ function Initialize(){
 		logo_use = 0;
 		bg_img = "";
 		bg_use = 1;
+		bg_use2 = 0;
 		no_wide = 0;
 		c_shadow = 0;
 		c_margin = 0;
 		default_color = "";
 		default_hf = "";
+		default_m = "";
 		page = [];
 		page_id = 0;
 		page_dialog = 0;
 		path = "";
-		$("#wsDescription").text("【ウェブサイトの説明文を入力】");
-		$("#colorTheme").val("rgb(63, 81, 181)");
 		$(".webgeki-wrapper").css("width","1000px");
 		$("#siteWidth").val("1000");
 		$(".webgeki-main").css("font-family","GenShinGothic");
 		$(".webgeki-header").css("text-align","left");
 		$(".webgeki-footer").css("text-align","left");
-		document.title = "無題 - ウェブ撃";
-		page.push(["トップページ","","<h1>ようこそ</h1>これはサンプルテキストです。編集時には削除して下さい。<hr>これはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストです","<h1>ようこそ</h1>これはサンプルテキストです。編集時には削除して下さい。<hr>これはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストですこれはサンプルテキストです",1]);
+		InitCommon();
 		openPage(0);
 	}
 }
@@ -57,6 +66,7 @@ function fileOpen(){
 							logo_use = savedata.ws_logo_use;
 							bg_img = savedata.ws_bg_img;
 							bg_use = savedata.ws_bg_use;
+							bg_use2 = savedata.ws_bg_use2;
 							no_wide = savedata.ws_no_wide;
 							c_shadow = savedata.ws_c_shadow;
 							c_margin = savedata.ws_c_margin;
@@ -68,6 +78,7 @@ function fileOpen(){
 							$(".webgeki-footer").css("text-align",savedata.ws_align_footer);
 							$("#colorTheme").val(savedata.ws_theme_color);
 							$("#hfTheme").val(savedata.ws_theme_hf);
+							$("#mTheme").val(savedata.ws_theme_m);
 							page = savedata.ws_page;
 							path = filepaths[0];
 							update();
@@ -116,6 +127,7 @@ function fileSaveProcess(a){
 		ws_logo_use: logo_use,
 		ws_bg_img: bg_img,
 		ws_bg_use: bg_use,
+		ws_bg_use2: bg_use2,
 		ws_no_wide: no_wide,
 		ws_c_shadow: c_shadow,
 		ws_c_margin: c_margin,
@@ -126,6 +138,7 @@ function fileSaveProcess(a){
 		ws_align_footer: $(".webgeki-footer").css("text-align"),
 		ws_theme_color: $("#colorTheme").val(),
 		ws_theme_hf: $("#hfTheme").val(),
+		ws_theme_m: $("#mTheme").val(),
 		ws_page: page
 	}
 	fs.writeFile(a, JSON.stringify(savedata), "utf8", err=>{

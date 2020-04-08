@@ -114,7 +114,7 @@
 								</div>
 								<div class="webgeki-wrapper">
 									<h1><a href="javascript:wsNameDialogOpen()" id="wsName" data-toggle="tooltip" title="ウェブサイトの名前を変更"></a></h1>
-									<h2><a href="javascript:wsDescriptionDialogOpen()" id="wsDescription" data-toggle="tooltip" title="ウェブサイトの説明文を変更">【ウェブサイトの説明文を入力】</a></h2>
+									<h2><a href="javascript:wsDescriptionDialogOpen()" id="wsDescription" data-toggle="tooltip" title="ウェブサイトの説明文を変更"></a></h2>
 								</div>
 							</div>
 							<div class="webgeki-wrapper webgeki-contents">
@@ -125,7 +125,7 @@
 							</div>
 							<div class="webgeki-footer webgeki-theme">
 								<div class="webgeki-wrapper">
-									<a href="javascript:wsFooterDialogOpen()" id="wsFooter" data-toggle="tooltip" title="フッターの表記を変更">(c)2019 Unknown Website all rights reserved.</a>
+									<a href="javascript:wsFooterDialogOpen()" id="wsFooter" data-toggle="tooltip" title="フッターの表記を変更"></a>
 								</div>
 							</div>
 						</div>
@@ -456,9 +456,23 @@
 									</select>
 								</div>
 							</div>
+							<div class="form-group row">
+								<label for="hfTheme" class="col-sm-4 col-form-label">コンテンツの文字色</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="mTheme">
+										<option value="rgb(255, 255, 255)">白</option>
+										<option value="rgb(0, 0, 0)">黒</option>
+										<option value="theme">テーマ色</option>
+									</select>
+								</div>
+							</div>
 							<div class="form-check">
 								<input class="form-check-input" type="checkbox" id="useBGColor">
 								<label class="form-check-label" for="useBGColor">ヘッダー・フッターの背景色をテーマ色に設定</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="useBGColor2">
+								<label class="form-check-label" for="useBGColor2">コンテンツの背景色をテーマ色に設定</label>
 							</div>
 						</form>
 					</div>
@@ -486,14 +500,14 @@
 						</div>
 						<p>
 							ウェブ撃 -WEBGEKI-<br>
-							Beta 1<br>
+							Beta 2<br>
 							(c)2019,2020 Sora Arakawa all rights reserved.
 						</p>
 						<p>
 							以下のライブラリ及びフォントを使用しています：<br>
 							Electron 4.2.12 (Chromium 69.0.3497.128 + Node 10.11.0 + V8 6.9.427.31-electron.0)<br>
 							jQuery 3.4.1<br>
-							Bootstrap 4.3.1<br>
+							Bootstrap 4.4.2<br>
 							Bootstrap Colorpicker 3.1.2<br>
 							Popper.js 1.14.7<br>
 							CKEditor 4.12.1<br>
